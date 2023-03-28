@@ -1,21 +1,17 @@
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from uuid import UUID, uuid4
 from beanie import Document, Indexed, Insert, Link, Replace, before_event
 from pydantic import Field
 from models.user_model import User
 
-class Transaction(Document):
-    transaction_id: UUID = Field(default_factory=uuid4)
+class Category(Document):
+    category_id: UUID = Field(default_factory=uuid4)
     title: Indexed(str)
     description: Optional[str] = None
-    type: str
-    category: str
-    subcategory: str
-    amount: float
+    subcategories: List[str]
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
-    owner: Link[User]
 
     # Overriding predefined functions
     def __repr__(self) -> str:
@@ -27,14 +23,9 @@ class Transaction(Document):
     def __hash__(self) -> int:
         return hash(self.title)
     
-    def __eq__(self, other: object) -> bool :
-        if isinstance(other, User):
-            return self.transaction_id == other.transaction_id
-        return False
-    
     @before_event([Replace,Insert])
     def update_updated_at(self):
         self.updated_at = datetime.utcnow()
     
     class Settings:
-        name = "transactions_v2"
+        name = "categories"
