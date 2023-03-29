@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional, Literal
 from uuid import UUID
 from pydantic import BaseModel, Field
@@ -8,8 +9,16 @@ class TransactionCreate(BaseModel):
     description: Optional[str] = Field(..., title="Title", max_length=100, min_length=1)
     type: str
     category: str
-    sub_category: str
+    subcategory: str
     amount: float
+
+class TransactionUpdate(BaseModel):
+    title: Optional[str] = Field(..., title="Title", max_length=100, min_length=1)
+    description: Optional[str] = Field(..., title="Title", max_length=100, min_length=1)
+    type: Optional[str]
+    category: Optional[str]
+    subcategory: Optional[str]
+    amount: Optional[float]
 
 class TransactionOut(BaseModel):
     transaction_id: UUID
@@ -17,5 +26,6 @@ class TransactionOut(BaseModel):
     description: str
     type: str
     category: str
-    sub_category: str
+    subcategory: str
     amount: float
+    created_at: datetime

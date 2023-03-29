@@ -8,7 +8,7 @@ from models.user_model import User
 class Transaction(Document):
     transaction_id: UUID = Field(default_factory=uuid4)
     title: Indexed(str)
-    description: Optional[str] = None
+    description: str = None
     type: str
     category: str
     subcategory: str
