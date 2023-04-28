@@ -1,3 +1,0 @@
-fastapi
-uvicorn
-motor == 3.1.1
