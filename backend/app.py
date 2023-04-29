@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from core.config import settings
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
+import uvicorn
 
 from models.user_model import User
 from models.transaction_model import Transaction
