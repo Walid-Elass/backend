@@ -3,7 +3,6 @@ from datetime import datetime
 from uuid import UUID, uuid4
 from beanie import Document, Indexed, Insert, Link, Replace, before_event
 from pydantic import Field
-from models.user_model import User
 
 class Category(Document):
     category_id: UUID = Field(default_factory=uuid4)

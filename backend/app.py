@@ -5,7 +5,6 @@ from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 import uvicorn
 
-from models.user_model import User
 from models.transaction_model import Transaction
 from models.category_model import Category
 from api.api_v1.router import router
@@ -34,7 +33,6 @@ async def app_init():
     await init_beanie(
         database=db_client,
         document_models = [
-            User,
             Transaction
         ]
     )

@@ -3,7 +3,7 @@ from pydantic import BaseSettings, AnyHttpUrl
 from decouple import config
 
 class Settings(BaseSettings):
-    API_V1_STR: str = "/api/v1"
+    API_V1_STR: str = "/v1"
     JWT_SECRET_KEY: str = config("JWT_SECRET_KEY",cast=str)
     JWT_REFRESH_SECRET_KEY: str = config("JWT_REFRESH_SECRET_KEY",cast=str)
     ALGORITHM = "HS256"

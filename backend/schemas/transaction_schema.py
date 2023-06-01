@@ -5,11 +5,11 @@ from pydantic import BaseModel, Field
 
 
 class TransactionCreate(BaseModel):
-    title: str = Field(..., title="Title", max_length=100, min_length=1)
-    description: Optional[str] = Field(..., title="Title", max_length=100, min_length=1)
+    title: str = Field(..., title="Title", max_length=1000, min_length=1)
+    description: Optional[str] = Field(..., title="Title", max_length=1000, min_length=1)
     type: str
     category: str
-    subcategory: str
+    subcategory: Optional[str] = "Not Specified"
     amount: float
 
 class TransactionUpdate(BaseModel):

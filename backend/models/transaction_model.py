@@ -3,7 +3,6 @@ from datetime import datetime
 from uuid import UUID, uuid4
 from beanie import Document, Indexed, Insert, Link, Replace, before_event
 from pydantic import Field
-from models.user_model import User
 
 class Transaction(Document):
     transaction_id: UUID = Field(default_factory=uuid4)
@@ -15,7 +14,7 @@ class Transaction(Document):
     amount: float
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
-    owner: Link[User]
+    owner_id: UUID
 
     # Overriding predefined functions
     def __repr__(self) -> str:
@@ -28,8 +27,8 @@ class Transaction(Document):
         return hash(self.title)
     
     def __eq__(self, other: object) -> bool :
-        if isinstance(other, User):
-            return self.transaction_id == other.transaction_id
+        if isinstance(other, Transaction):
+            return (self.transaction_id == other.transaction_id) and (self.owner_id == other.owner_id)
         return False
     
     @before_event([Replace,Insert])
